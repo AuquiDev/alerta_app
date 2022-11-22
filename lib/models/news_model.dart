@@ -28,7 +28,7 @@ class NewModel {
         link: json["link"] ?? "http://via.placeholder.com/200x150",
         titulo: json["titulo"],
         fecha: DateTime.parse(json["fecha"]),
-        imagen: json["imagen"],
+        imagen: json["imagen"] ?? "https://cdn.pixabay.com/photo/2012/04/26/22/31/fabric-43354__480.jpg",
     );
 
     Map<String, dynamic> toJson() => {

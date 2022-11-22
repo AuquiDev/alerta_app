@@ -4,6 +4,7 @@ import 'package:alerta_app/ui/general/colors.dart';
 import 'package:alerta_app/ui/pages/new_register_pages.dart';
 import 'package:alerta_app/ui/widgets/general_widget.dart';
 import 'package:alerta_app/ui/widgets/textfield_widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class NewPage extends StatelessWidget {
@@ -95,34 +96,35 @@ class NewPage extends StatelessWidget {
                                   )
                                 ]
                               ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: FadeInImage(
-                                  fit: BoxFit.fill,
-                                  image:  NetworkImage(listData[index].imagen.toString(),) ,
-                                  placeholder: AssetImage('assets/images/image.jpeg'),
-                                  ),
-                              ),
-                            ),
+                              child:   
+                            //   ClipRRect(
+                            //     borderRadius: BorderRadius.circular(10),
+                            //     child: FadeInImage(
+                            //       fit: BoxFit.fill,
+                            //       image: snapshot.data != null ?   NetworkImage(listData[index].imagen.toString(),): NetworkImage('http://via.placeholder.com/200x150') ,
+                            //       placeholder: AssetImage('assets/images/image.jpeg'),
+                            //       ),
+                            //   ) //s: Icon(Icons.bus_alert_outlined),
+                            // ),
                             
-                             // CachedNetworkImage(
-                              //   imageUrl: listData[index].imagen.toString(),
-                              //   imageBuilder: (context, imageProvider) =>
-                              //       Container(
-                              //     decoration: BoxDecoration(
-                              //       image: DecorationImage(
-                              //           image: imageProvider,
-                              //           fit: BoxFit.cover,
-                              //           colorFilter: ColorFilter.mode(
-                              //               Colors.red, BlendMode.colorBurn)),
-                              //     ),
-                              //   ),
-                              //   placeholder: (context, url) =>
-                              //       CircularProgressIndicator(),
-                              //   errorWidget: (context, url, error) =>
-                              //       Icon(Icons.error),
-                              // ),
-                          );
+                             CachedNetworkImage(
+                                imageUrl: listData[index].imagen.toString(),
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: NetworkImage(listData[index].imagen.toString()),
+                                        fit: BoxFit.cover,
+                                        ),
+                                  ),
+                                ),
+                                placeholder: (context, url) =>
+                                    Image.asset('assets/images/image.jpeg'),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
+                          ));
+                          
                         },
                       ),
                     );

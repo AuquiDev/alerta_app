@@ -39,6 +39,10 @@ class _NewRegisterPagesState extends State<NewRegisterPages> {
     }
   }
 
+  final _formKey = GlobalKey<FormState>();
+
+  bool isLoading = false;
+
   registerNEws() async {
     APiServices aPiServices = APiServices();
     NewModel model = NewModel(
@@ -47,12 +51,43 @@ class _NewRegisterPagesState extends State<NewRegisterPages> {
         fecha: DateTime.now(),
         imagen: _imageFile!.path);
     // aPiServices.registerNews(File(_imageFile!.path));
-    aPiServices.registerNews(model);
+    NewModel? newModel = await aPiServices.registerNews(model);
+    if (newModel != null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          behavior: SnackBarBehavior.floating,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          backgroundColor: Colors.redAccent.withOpacity(.7),
+          content: Row(
+            children: [
+              const Icon(
+                (Icons.error_outline),
+                color: Colors.white,
+              ),
+              divaderwitdh12,
+              const Text('Registro Satisfactorio '),
+            ],
+          )));
+      setState(() {});
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          behavior: SnackBarBehavior.floating,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          backgroundColor: Colors.redAccent.withOpacity(.7),
+          content: Row(
+            children: [
+              const Icon(
+                (Icons.error_outline),
+                color: Colors.white,
+              ),
+              divaderwitdh12,
+              const Text('Hubo un error intente nuevamnete'),
+            ],
+          )));
+      setState(() {});
+    }
   }
-
-  final _formKey = GlobalKey<FormState>();
-
-  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +119,7 @@ class _NewRegisterPagesState extends State<NewRegisterPages> {
                   controller: _linkController,
                   label: "URL VIdeo: ",
                   hintText: 'Ingresa link video',
-                  inputTypeEnum: InputTypeEnum.text,
+                  //inputTypeEnum: InputTypeEnum.text,
                 ),
                 divader14,
                 Row(
@@ -149,7 +184,7 @@ class _NewRegisterPagesState extends State<NewRegisterPages> {
                 ButtonCustomWidget(
                   text: "Registrar noticia",
                   onTap: () {
-                   registerNEws();
+                    registerNEws();
                   },
                 )
               ],
